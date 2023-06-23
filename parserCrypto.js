@@ -22,6 +22,14 @@ async function getCrypto (){
         })
         crypto.price = allCrypto.slice(0,2)
     
+        
+        let allday = await newPage.evaluate( ()=>{
+            const nums = Array.from(document.querySelectorAll('#pch'), e => e.innerText)
+            return nums
+        })
+        // console.log(allday)
+
+        crypto.changes = allday.slice(0,2)
        
 
         let allChanges = await newPage.evaluate( ()=>{
@@ -29,7 +37,7 @@ async function getCrypto (){
             
             return cryptoArray
         })
-        crypto.changes = allChanges.slice(0,5)
+        crypto.changes.push(...allChanges.slice(0,6))
 
   
     await browser.close()
@@ -46,6 +54,6 @@ async function getCrypto (){
 }
 
 
-
+// getCrypto()
 
 module.exports = {getCrypto}
